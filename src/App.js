@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import BlogDetail from "./components/BlogDetails";
 import PersonalBlog from "./components/PersonalBlog";
 import EditPost from "./components/EditPost";
+import BlogPost from "./components/BlogPost";
 function App() {
   return (
     <div className="">
@@ -22,6 +23,8 @@ function App() {
           <Route exact path="/detail/:id" element={<BlogDetail />} />
           <Route exact path="/personal" element={<PersonalBlog />} />
           <Route exact path="/edit/:id" element={<EditPost />} />
+          <Route exact path="/allpost" element={<BlogPost />} />
+
         </Routes>
       </SnackbarProvider>
     </div>

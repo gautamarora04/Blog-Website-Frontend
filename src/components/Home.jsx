@@ -1,15 +1,43 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
-
+import axios from "axios";
 import BlogPost from "./BlogPost";
 const Home = () => {
   const [userData, setUserData] = useState();
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(); // State for last page
   useEffect(() => {
+    // Fetch the total pages from your API and set it in state
+    axios
+    .get(`${process.env.REACT_APP_BACKEND_URL}/api/allpost`, {
+      params: {
+        page: currentPage,
+      },
+      withCredentials: true,
+    })
+    .then(function (response) {
+      setLastPage(response?.data?.meta?.last_page); // Extract last page from meta
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
     const User = localStorage.getItem("user");
     const parseUser = JSON.parse(User);
     setUserData(parseUser);
-  }, []);
+  }, [currentPage]);
+ // Function to handle next page click
+  const handleNextPage = () => {
+    if (currentPage < lastPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  // Function to handle previous page click
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <>
@@ -49,8 +77,27 @@ const Home = () => {
           </div>
         </main>
       </div>
-
-      <BlogPost />
+      {/* Pagination controls */}
+      <div className="mt-5 flex justify-center">
+        <button
+          onClick={handlePrevPage}
+          className="px-4 py-2 border rounded-md mr-2"
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span className="text-xl">{`Page ${currentPage} of ${lastPage}`}</span>
+        <button
+          onClick={handleNextPage}
+          className="px-4 py-2 border rounded-md ml-2 mybtn"
+          disabled={currentPage === lastPage}
+        >
+          Next
+        </button>
+      </div>
+      {/* Render your BlogPost component here with the currentPage */}
+      <BlogPost currentPage={currentPage} />
+      {/* <BlogPost /> */}
 
       {/* <div className="pt-10 text-3xl font-medium text-center">
         {loading ? "The System is logging you out" : "Welcome Home"}{" "}

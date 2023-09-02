@@ -32,7 +32,7 @@ const EditPost = () => {
       fontSize: "16px",
     },
   };
-  
+
   const [openSnackbar] = useSnackbar(options);
   const singleBlog = () => {
     axios
@@ -77,7 +77,7 @@ const EditPost = () => {
       image: singleBlog?.image,
     };
 
-    
+
     axios
       .put(
         `${process.env.REACT_APP_BACKEND_URL}/api/update/${id}`,
@@ -103,25 +103,48 @@ const EditPost = () => {
         console.log(error);
       });
   };
-
+  
   const handleImage = (e) => {
     const file = e.target.files[0];
     const size = file.size / 1024;
     setImageUpload(e.target.files[0]);
 
-    // data.append("image", file);
+    // formData.append("image", file);
     const reader = new FileReader();
     reader.onloadend = function () {
       setImage({ [e.target.name]: reader.result });
 
-      //setPreview({ ...preview, [e.target.name]: reader.result });
+      // setPreview({ ...preview, [e.target.name]: reader.result });
     };
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
       e.target.value = null;
     }
   };
+  const uploadImage = () => {
+    let formData = new FormData(); //formdata object
 
+    formData.append("image", imageUpload); //append the values with key, value pair
+    //formData.append("name", imageUpload.name);
+    formData.append("name", imageUpload.name);
+    const config = {
+      headers: { "content-type": "multipart/form-data" },
+      withCredentials: true,
+    };
+    let url = `${process.env.REACT_APP_BACKEND_URL}/api/upload-image`;
+
+    axios
+      .post(url, formData, config)
+      .then((response) => {
+        console.log("Image Url", response?.data?.url);
+        setImage(response?.data?.url);
+        openSnackbar("Image uploaded successfully");
+
+      })
+      .catch((error) => { 
+        console.log(error);
+      });
+  };
   return (
     <div className="max-w-screen-md mx-auto p-5">
       <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
@@ -153,51 +176,51 @@ const EditPost = () => {
           </div>
         </div>
 
-            <div className="flex flex-wrap -mx-3 items-center lg:items-start mb-6">
-            <div className="w-full px-3">
-              <label title="click to select a picture">
-                <input
-                  accept="image/*"
-                  className="hidden"
-                  id="banner"
-                  type="file"
-                  name="image"
-                  onChange={handleImage}
-                  visibility="hidden"
-                />
-                <div className="flex flex-col">
-                  <div className="pb-2">Upload Image</div>
+        <div className="flex flex-wrap -mx-3 items-center lg:items-start mb-6">
+          <div className="w-full px-3">
+            <label title="click to select a picture">
+              <input
+                accept="image/*"
+                className="hidden"
+                id="banner"
+                type="file"
+                name="image"
+                onChange={handleImage}
+                visibility="hidden"
+              />
+              <div className="flex flex-col">
+                <div className="pb-2">Upload Image</div>
 
-                  {image ? (
-                    <div className="pt-4">
-                      <div>
-                        <img
-                          className="-object-contain -mt-8 p-5 w-1/2"
-                          src={image ? image.image : ""}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="pb-5">
+                {image ? (
+                  <div className="pt-4">
+                    <div>
                       <img
-                         src={image ? image.image : "/upload/"+singlePost?.image}
-                        style={{ background: "#EFEFEF" }}
-                        className="h-full w-48"
+                        className="-object-contain -mt-8 p-5 w-1/2"
+                        src={image ? image.image : ""}
+                        alt=""
                       />
                     </div>
-                  )}
-                </div>
-              </label>
+                  </div>
+                ) : (
+                  <div className="pb-5">
+                    <img
+                      src={image ? image.image: "/upload/" + singlePost?.image}
+                      style={{ background: "#EFEFEF" }}
+                      className="h-full w-48"
+                    />
+                  </div>
+                )}
+              </div>
+            </label>
           </div>
           <div className="flex items-center justify-cente px-5">
             <button
               className="shadow bg-indigo-600 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
               type="button"
-              // onClick={uploadImage}
+              onClick={uploadImage}
             >
-              Upload image
-              
+              Upload Image
+
             </button>
           </div>
         </div>

@@ -1,23 +1,29 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-const BlogPost = () => {
+
+const BlogPost = ({ currentPage }) => {
   const [blogData, setBlogData] = useState();
   const [loading, setLoading] = useState(false);
   const allBlog = () => {
     setLoading(true);
     axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/allpost`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/allpost/`,
         //{},
         {
+          params: {
+            page: currentPage, // Pass the current page as a query parameter
+          },
           withCredentials: true,
         }
       )
       .then(function (response) {
         setLoading(false);
+        console.log("hello", response);
         setBlogData(response?.data?.data);
         console.log(response?.data?.data);
+        console.log(response?.data?.meta);
       })
       .catch(function (error) {
         setLoading(false);
@@ -25,14 +31,16 @@ const BlogPost = () => {
         //setLoading(false);
         //   setMessage(error?.response?.data?.message);
         //   openSnackbar(error?.response?.data?.message);
-        console.log(error);
+        console.log("error", error);
       });
-  };
+  }
   useEffect(() => {
     allBlog();
-  }, []);
+  }, [currentPage]);
   return (
     <>
+    <h1>{currentPage}</h1>
+    <h1>hgyh</h1>
       {loading && (
         <div className="text-2xl font-bold text-center px-56 pt-24">
           <h1>LOADING.....</h1>
