@@ -16,7 +16,7 @@ const BlogDetail = () => {
   const singleBlog = () => {
     axios
       .get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/get-blog/${id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/allpost/${id}`,
         //{},
         {
           withCredentials: true,
@@ -45,11 +45,18 @@ const BlogDetail = () => {
   return (
     <div className="relative">
       <div className="max-w-3xl mb-10 rounded overflow-hidden flex flex-col mx-auto text-center">
-        <div className="max-w-3xl mx-auto text-xl sm:text-4xl font-semibold inline-block hover:text-indigo-600 transition duration-500 ease-in-out inline-block mb-2">
+        {/* <div className="max-w-3xl mx-auto text-xl sm:text-4xl font-semibold inline-block hover:text-indigo-600 transition duration-500 ease-in-out inline-block mb-2">
           The Best Activewear from the Nordstrom Anniversary Sale
+        </div> */}
+        <div className="max-w-3xl mx-auto text-xl sm:text-4xl font-semibold inline-block hover:text-indigo-600 transition duration-500 ease-in-out inline-block mb-2">
+            {singlePost?.title}
         </div>
-
-        <img className="w-full h-96 my-4" src={singlePost?.image} />
+        
+        {/* <img className="w-full h-96 my-4" src={singlePost?.image} /> */}
+        {/* <img className="w-96 my-4" src={"/upload/" + singlePost?.image} /> */}
+        <div className="flex justify-center items-center">
+        <img className="w-96 my-4" src={"/upload/" + singlePost?.image} alt="Blog Post Image" />
+    </div>
         <p className="text-gray-700 text-base leading-8 max-w-2xl mx-auto">
           Author: {singlePost?.user?.first_name} {singlePost?.user?.last_name}
         </p>
@@ -60,7 +67,7 @@ const BlogDetail = () => {
       <div className="max-w-3xl mx-auto">
         <div className="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
           <div className="">
-            <p className="text-base leading-8 my-5">{singlePost?.desc}</p>
+            <p className="text-base leading-8 my-5">{singlePost?.description}</p>
           </div>
         </div>
       </div>

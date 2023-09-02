@@ -29,7 +29,6 @@ const PersonalBlog = () => {
     axios
       .get(
         `${process.env.REACT_APP_BACKEND_URL}/api/mypost`,
-
         {
           withCredentials: true,
           headers: {
@@ -41,7 +40,7 @@ const PersonalBlog = () => {
         setLoading(false);
         //setBlogData(response?.data?.data);
         setBlogData(response?.data);
-        console.log("respose",response?.data);
+        console.log("Gautam",response?.data);
       })
       .catch(function (error) {
         setLoading(false);
@@ -66,7 +65,7 @@ const PersonalBlog = () => {
     setDeleteLoading(true);
     axios
       .delete(
-        `${process.env.REACT_APP_BACKEND_URL}/api/delete-blog/${blog.id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/deletepost/${blog.id}`,
 
         {
           withCredentials: true,
@@ -119,7 +118,7 @@ const PersonalBlog = () => {
                     src = {"/upload/" + blog?.image}
                   />
                 </a>
-
+                {/* src = {"/upload/" + blog?.image} */}
                 <header className="flex items-center justify-between leading-tight p-2 md:p-4">
                   <h1 className="text-lg">
                     <a
@@ -130,7 +129,9 @@ const PersonalBlog = () => {
                     </a>
                   </h1>
                   <p className="text-grey-darker text-sm">
-                    {new Date(blog?.CreatedAt).toLocaleString()}
+                    {/* {new Date(blog?.CreatedAt).toLocaleString()} */}
+                    {blog?.createdat ? new Date(blog.createdat).toLocaleString() : "N/A"}
+                   {/* "Crt:" {blog?.CreatedAt}; */}
                   </p>
                 </header>
 
@@ -142,7 +143,7 @@ const PersonalBlog = () => {
                     <img
                       alt="Placeholder"
                       className="block rounded-full w-5 h-5"
-                      src={blog?.image}
+                      src={"/upload/" + blog?.image}
                     />
                     <p className="ml-2 text-sm">
                       {blog?.user?.first_name} {blog?.user?.last_name}

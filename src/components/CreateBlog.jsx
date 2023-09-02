@@ -60,7 +60,7 @@ const CreateBlog = () => {
         // handle success
         setLoading(false);
         console.log(response)
-        // navigate("/personal");
+        navigate("/personal");
       })
       .catch(function (error) {
         setLoading(false);
@@ -205,11 +205,11 @@ const CreateBlog = () => {
             <div className="flex items-center justify-cente px-5">
               <button
                 className="shadow bg-indigo-600 hover:bg-indigo-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
-                // type="submit"
+                type="button"
                 onClick={uploadImage}
                 disabled={loading ? true : false}
               >
-                {loading ? "Loading..." : " upload image"}
+                {loading ? "Loading..." : " Upload image"}
               </button>
             </div>
           </div>
