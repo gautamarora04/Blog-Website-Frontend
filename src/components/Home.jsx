@@ -42,13 +42,13 @@ const Home = () => {
   return (
     <>
       <div className="relative h-screen w-full flex items-center justify-center text-center bg-cover bg-center">
-      <div className="absolute top-0 right-0 bottom-0 left-0 bg-cover bg-no-repeat bg-center" style={{ backgroundImage: "url('https://img.freepik.com/free-photo/flowers-notebook-near-laptop_23-2147759307.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698796800&semt=ais')" }}></div>
+      <div className="absolute top-0 right-0 bottom-0 left-0 bg-cover bg-no-repeat bg-center" style={{ backgroundImage: "url('/background.jpg')" }}></div>
 
 
         <main className="px-4 sm:px-6 lg:px-8 z-10">
           <div className="text-center">
             <h2 className="text-4xl tracking-tight leading-10 font-medium sm:text-5xl text-white sm:leading-none md:text-6xl">
-            <span className="text-indigo-600 font-bold">
+            <span className="text-slate-400">
             Hi {userData?.first_name ? 
               (userData.first_name.charAt(0).toUpperCase() + userData.first_name.slice(1)) : ""
             } {userData?.last_name ? 
@@ -65,7 +65,7 @@ const Home = () => {
               <div className="rounded-md shadow">
                 <a
                   href="/create"
-                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-regular rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-4 md:px-10"
+                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-regular rounded-md text-indigo-700  bg-gray-300 hover:bg-gray-600 hover:text-white focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-4 md:px-10"
                 >
                   Create Post
                 </a>
@@ -86,7 +86,7 @@ const Home = () => {
       <div className="mt-5 flex justify-center items-center">
       <button
         onClick={handlePrevPage}
-        className="px-4 py-2 border rounded-md mr-2"
+        className="px-4 py-2 bg-gray-100 border hover:bg-gray-300 rounded-md mr-2"
         disabled={currentPage === 1}
       >
         Previous
@@ -94,7 +94,7 @@ const Home = () => {
       <span className="text-xl">{`Page ${currentPage} of ${lastPage}`}</span>
       <button
         onClick={handleNextPage}
-        className="px-4 py-2 border rounded-md ml-2 mybtn"
+        className="px-4 py-2 bg-gray-100 hover:bg-gray-300 border rounded-md ml-2 mybtn"
         disabled={currentPage === lastPage}
       >
         Next
