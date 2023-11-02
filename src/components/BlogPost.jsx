@@ -39,6 +39,8 @@ const BlogPost = ({ currentPage }) => {
   }, [currentPage]);
   return (
     <>
+    <h1>{currentPage}</h1>
+    <h1>hgyh</h1>
       {loading && (
         <div className="text-2xl font-bold text-center px-56 pt-24">
           <h1>LOADING.....</h1>
