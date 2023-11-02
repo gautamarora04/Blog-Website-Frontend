@@ -35,11 +35,14 @@ const Navbar = () => {
   };
   useEffect(() => {
     const User = localStorage.getItem("user");
+    // if (!User) {
+    //   navigate("/login");
+    // }
     const parseUser = JSON.parse(User);
     setUserData(User);
   }, [userData]);
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6">
+    <nav className="flex items-center justify-between flex-wrap bg-black p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <svg
           className="fill-current h-8 w-8 mr-2"
@@ -51,7 +54,7 @@ const Navbar = () => {
           <path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" />
         </svg>
         <span className="font-semibold text-xl tracking-tight">
-          Golang Blog
+        Collective Insights
         </span>
       </div>
 
@@ -102,10 +105,11 @@ const Navbar = () => {
             My Post
           </a>
           <div
+            
             onClick={logOut}
             className="block mt-4 text-base lg:inline-block lg:mt-0 text-teal-200 hover:text-white cursor-pointer"
           >
-            {userData ? " Log Out" : "Login"}
+            {userData ? " Logout" : "Login"}
           </div>
         </div>
       </div>
