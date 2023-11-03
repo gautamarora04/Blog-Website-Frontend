@@ -19,6 +19,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/login" element={<Login />} />
+          {/* <Route exact path="/logout" element={<Logout />} /> */}
           <Route exact path="/create" element={<CreateBlog />} />
           <Route exact path="/detail/:id" element={<BlogDetail />} />
           <Route exact path="/personal" element={<PersonalBlog />} />

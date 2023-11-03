@@ -5,6 +5,9 @@ const Navbar = () => {
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState();
   const navigate = useNavigate();
+  const login = () => {
+        navigate("/login");     
+  };
   const logOut = () => {
     axios
       .post(
@@ -104,13 +107,13 @@ const Navbar = () => {
           >
             My Post
           </a>
-          <div
-            
-            onClick={logOut}
-            className="block mt-4 text-base lg:inline-block lg:mt-0 text-blue-200 hover:text-white cursor-pointer"
-          >
-            {userData ? " Logout" : "Login"}
-          </div>
+          <a
+          onClick={userData ? logOut : login}
+          className="block mt-4 text-base lg:inline-block lg:mt-0 text-blue-200 hover:text-white cursor-pointer"
+        >
+          {userData ? "Logout" : "Login"}
+        </a>
+
         </div>
       </div>
     </nav>
